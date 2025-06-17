@@ -31,7 +31,7 @@ API RESTful construida en **.NET 8** para la gestión de tareas, estados y usuar
 1. **Clona el repositorio:**
 
    ```bash
-   git clone https://github.com/tuusuario/TaskManagementAPI.git
+   git clone https://github.com/JeanCarloH/backendSentry.git
    cd TaskManagementAPI
    ```
 
