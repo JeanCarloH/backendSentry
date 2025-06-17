@@ -137,6 +137,36 @@ Ahí podrás explorar y probar todos los endpoints directamente desde el navegad
   ```
 
 ---
+## 🧠 Arquitectura definida y decisiones
+
+La API fue desarrollada siguiendo una **arquitectura por capas (Layered Architecture)**, separando las responsabilidades en carpetas específicas como `Controllers`, `Services`, `Models`, `Data`, `Dtos`, `Middlewares` y `Settings`. Este enfoque promueve la claridad, el desacoplamiento y facilita las pruebas y la escalabilidad.
+
+### 📁 Estructura de carpetas y roles
+
+- **`Controllers/`**  
+  Expone los endpoints HTTP, actuando como punto de entrada de las peticiones. No contiene lógica de negocio, solo delega a los servicios.
+
+- **`Services/`**  
+  Encapsulan la lógica de negocio de cada dominio (`TaskService`, `StateService`, `AuthService`, etc.). Esto permite probar fácilmente la lógica sin necesidad de invocar controladores o dependencias externas.
+
+- **`Models/`**  
+  Contienen las entidades del dominio que se traducen a tablas mediante Entity Framework Core (`TaskItem`, `State`, `User`).
+
+- **`data/` (con `AppDbContext.cs`)**  
+  Gestiona la conexión y configuración con la base de datos usando Entity Framework Core (Code-First).
+
+- **`Migrations/`**  
+  Carpeta generada por EF Core para rastrear cambios en el modelo y aplicar actualizaciones a la base de datos de forma controlada.
+
+- **`dtos/`**  
+  Los DTOs (Data Transfer Objects) definen contratos de datos seguros y específicos para entrada/salida, protegiendo el modelo interno y permitiendo validaciones personalizadas.
+
+- **`middlewares/`**  
+  Incluye un middleware de manejo de errores global para capturar excepciones de manera centralizada, mejorar trazabilidad y evitar duplicación de lógica de manejo de errores.
+
+- **`settings/`**  
+  Centraliza configuraciones como las claves de autenticación JWT, separando la lógica de negocio de la configuración sensible o variable por entorno.
+---
 
 ## 🧩 Autor y Licencia
 
