@@ -137,6 +137,20 @@ Ahí podrás explorar y probar todos los endpoints directamente desde el navegad
   ```
 
 ---
+## ⚠️ Manejo de errores globalizado
+
+La API implementa un middleware personalizado llamado `ErrorHandlingMiddleware`, el cual intercepta todas las excepciones no controladas y responde con un mensaje JSON estandarizado. Este middleware está registrado en el `Program.cs` de forma anticipada en la cadena de ejecución:
+
+```csharp
+app.UseMiddleware<ErrorHandlingMiddleware>();
+```
+
+Ubicado estratégicamente **antes de** `UseAuthentication()` y `UseAuthorization()`, permite capturar errores sin exponer detalles internos del servidor ni generar respuestas HTML innecesarias.
+
+Este enfoque garantiza una experiencia de desarrollo más controlada y cumple con el requerimiento de la prueba técnica de manejar errores de forma globalizada.
+
+---
+
 ## 🧠 Arquitectura definida y decisiones
 
 La API fue desarrollada siguiendo una **arquitectura por capas (Layered Architecture)**, separando las responsabilidades en carpetas específicas como `Controllers`, `Services`, `Models`, `Data`, `Dtos`, `Middlewares` y `Settings`. Este enfoque promueve la claridad, el desacoplamiento y facilita las pruebas y la escalabilidad.
